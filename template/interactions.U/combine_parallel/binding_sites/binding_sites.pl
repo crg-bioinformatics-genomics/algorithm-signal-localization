@@ -75,7 +75,7 @@ foreach my $id (keys %prot){
 }
 close OUT;
 
-`hmmscan --cut_ga --noali --domtblout ../../../tmp/pfam.out ../../../../../../Pfam/Pfam-A.hmm ../../../tmp/prot.tmp &> /dev/null`;
+`hmmscan --cut_ga --noali --domtblout ../../../tmp/pfam.out ../../../../../../../Pfam/Pfam-A.hmm ../../../tmp/prot.tmp &> /dev/null`;
 
 $file = '../../../tmp/pfam.out';
 my %pfam;
