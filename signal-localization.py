@@ -75,21 +75,21 @@ rnaFile=os.path.join(OUTPUT_PATH.replace("output/", ""),"rnaList.txt")
 rnaFilehandle=open(rnaFile,'w')
 import IPython
 
+rnalist=[]
 if len(args.FORMTranscript_1[0])>0:
-
-	rnaFilehandle.writelines(args.FORMTranscript_1[0]+'\n')
+	rnalist.append(args.FORMTranscript_1[0])
 if len(args.FORMTranscript_2[0])>0:
-
-	rnaFilehandle.writelines(args.FORMTranscript_2[0]+'\n')
+	rnalist.append(args.FORMTranscript_2[0])
 if len(args.FORMTranscript_3[0])>0:
-
-	rnaFilehandle.writelines(args.FORMTranscript_3[0]+'\n')
+	rnalist.append(args.FORMTranscript_3[0])
 if len(args.FORMTranscript_4[0])>0:
-
-	rnaFilehandle.writelines(args.FORMTranscript_4[0]+'\n')
+	rnalist.append(args.FORMTranscript_4[0])
 if len(args.FORMTranscript_5[0])>0:
+	rnalist.append(args.FORMTranscript_5[0])
 
-	rnaFilehandle.writelines(args.FORMTranscript_5[0]+'\n')
+rnalist=set(rnalist)
+for elem in rnalist:
+	rnaFilehandle.writelines(elem+'\n')
 rnaFilehandle.close()
 
 os.chdir(SCRIPT_PATH)
