@@ -117,7 +117,7 @@ p = subprocess.Popen(cmd, cwd=SCRIPT_PATH, shell=True)
 logfile.write(str(p.returncode)+"\n")
 
 p.wait()
-IPython.embed()
+
 logfile.write(str(p.returncode)+"\n")
 
 if p.returncode == 0:
