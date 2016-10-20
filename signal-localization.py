@@ -40,8 +40,9 @@ parser.add_argument(
 # accept form fields
 
 for item in task_definition['form_fields']:
+	nargs = 1 if item['required'] else "?"
 	parser.add_argument(
-	   '-FORM%s'%item['name'], type=str, default=[""], nargs=1,
+	   '-FORM%s'%item['name'], type=str, default=["none"], nargs=1,
 	   help='Form argument: %s' % item)
 
 
@@ -76,15 +77,15 @@ rnaFilehandle=open(rnaFile,'w')
 import IPython
 
 rnalist=[]
-if len(args.FORMTranscript_1[0])>0:
+if args.FORMTranscript_1[0]!="none":
 	rnalist.append(args.FORMTranscript_1[0])
-if len(args.FORMTranscript_2[0])>0:
+if args.FORMTranscript_2[0]!="none":
 	rnalist.append(args.FORMTranscript_2[0])
-if len(args.FORMTranscript_3[0])>0:
+if args.FORMTranscript_3[0]!="none":
 	rnalist.append(args.FORMTranscript_3[0])
-if len(args.FORMTranscript_4[0])>0:
+if args.FORMTranscript_4[0]!="none":
 	rnalist.append(args.FORMTranscript_4[0])
-if len(args.FORMTranscript_5[0])>0:
+if args.FORMTranscript_5[0]!="none":
 	rnalist.append(args.FORMTranscript_5[0])
 
 rnalist=set(rnalist)
