@@ -1,4 +1,0 @@
-None
-0
-./tmp/signal/outputs/
-copied fastas

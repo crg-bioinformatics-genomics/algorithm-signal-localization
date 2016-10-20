@@ -73,6 +73,8 @@ output_handle.close()
 
 rnaFile=os.path.join(OUTPUT_PATH.replace("output/", ""),"rnaList.txt")
 rnaFilehandle=open(rnaFile,'w')
+import IPython
+
 if len(args.FORMTranscript_1[0])>0:
 
 	rnaFilehandle.writelines(args.FORMTranscript_1[0]+'\n')
@@ -88,7 +90,7 @@ if len(args.FORMTranscript_4[0])>0:
 if len(args.FORMTranscript_5[0])>0:
 
 	rnaFilehandle.writelines(args.FORMTranscript_5[0]+'\n')
-
+rnaFilehandle.close()
 
 os.chdir(SCRIPT_PATH)
 # print(WORKER_PATH)
@@ -114,7 +116,7 @@ p = subprocess.Popen(cmd, cwd=SCRIPT_PATH, shell=True)
 logfile.write(str(p.returncode)+"\n")
 
 p.wait()
-
+IPython.embed()
 logfile.write(str(p.returncode)+"\n")
 
 if p.returncode == 0:
@@ -123,7 +125,7 @@ if p.returncode == 0:
 	logfile.write(TMP_PATH+"\n")
 	dirList=os.listdir(TMP_PATH)
 	shutil.copyfile(os.path.join(OUTPUT_PATH.replace("output/", ""),"protein.fasta"), OUTPUT_PATH+"protein.fasta")
-
+	shutil.copyfile(os.path.join(OUTPUT_PATH.replace("output/", ""),"rnaList.txt"), OUTPUT_PATH+"rnaList.txt")
 	logfile.write("copied fastas\n")
 	for file in dirList:
 		if os.path.isfile(TMP_PATH+file): #ignore directories
