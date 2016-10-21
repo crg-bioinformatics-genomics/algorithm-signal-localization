@@ -41,31 +41,26 @@ form_fields:
         description: Transcript ID 1
         required: Yes
         type: textarea
-        min_length: 1
         max_length: 20
     -   name: Transcript_2
         description: Transcript ID 2 (optional)
         required: No
         type: textarea
-        min_length: 1
         max_length: 20
     -   name: Transcript_3
         description: Transcript ID 3 (optional)
         required: No
         type: textarea
-        min_length: 1
         max_length: 20
     -   name: Transcript_4
         description: Transcript ID 4 (optional)
         required: No
         type: textarea
-        min_length: 1
         max_length: 20
     -   name: Transcript_5
         description: Transcript ID 5 (optional)
         required: No
         type: textarea
-        min_length: 1
         max_length: 20
     -   name: email
         description: Email address (optional, used for notification)
