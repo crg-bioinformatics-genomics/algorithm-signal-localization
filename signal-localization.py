@@ -132,9 +132,9 @@ if p.returncode == 0:
 		if os.path.isfile(TMP_PATH+file): #ignore directories
 			shutil.copyfile(TMP_PATH+file, OUTPUT_PATH+file)
 			logfile.write("copied all files\n")
-	'''if os.path.exists(OUTPUT_PATH+"images") == False :
+	if os.path.exists(OUTPUT_PATH+"images") == False :
 		copyfolder(SCRIPT_PATH+"/images", OUTPUT_PATH+"images")
-		logfile.write("copied images folder\n")'''
+		logfile.write("copied images folder\n")
 
 	from django.template import Template
 	from django.template import Context
