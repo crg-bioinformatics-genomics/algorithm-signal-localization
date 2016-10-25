@@ -66,7 +66,8 @@ if Ppat.match(args.FORMprotein_seq[0]) == None:
 protSeq = []
 for record in SeqIO.parse(StringIO.StringIO(args.FORMprotein_seq[0]), "fasta"):
 	protSeq.append(record)
-
+	break
+	
 protFile = os.path.join(OUTPUT_PATH.replace("output/", ""),"protein.fasta")
 output_handle = open(protFile, "w")
 SeqIO.write(protSeq, output_handle, "fasta")

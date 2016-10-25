@@ -2,4 +2,10 @@ lincrnas/*
 tmp/*
 .DS_Store
 Pfam/*
+eclip_selected_transcripts/*
+eclip_proteins/*
 /Pfam/
+eclip_bs_multijob.sh
+eclip_rnaLists/*
+interaction_map.txt
+tmprnalist.txt
