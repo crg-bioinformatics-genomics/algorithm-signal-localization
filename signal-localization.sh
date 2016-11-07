@@ -18,13 +18,11 @@ for i in `awk '{print $0}' $6`;do
 
   ( cp -r template tmp/$1/$i
 
-  cp eclip_selected_transcripts/$i.rna.fragm.seq.rna.lib tmp/$1/$i/interactions.U/combine_parallel/rna/
-#  cp lincrnas/$i.rna.fragm.seq.rna.lib tmp/$1/$i/interactions.U/combine_parallel/rna/
 
   cp lincrnas/$i.rna.fragm.seq.rna.lib tmp/$1/$i/interactions.U/combine_parallel/rna/
 	cp $5 tmp/$1/$i/outputs/protfile
 	prot_file=$(readlink -f tmp/$1/$i/outputs/protfile)
-	
+
   cd   tmp/$1/$i
 	bash run_signal_localization_case.sh $1 $2 $3 $4 $prot_file $6 $script_folder $i
 	cd ../../../ ) &
