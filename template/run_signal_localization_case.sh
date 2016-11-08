@@ -64,23 +64,23 @@ cd filter
     awk '{printf "%.2f\n", ($2+1)/2}' processed.txt > ../outputs/filter.tmp
 
 cd ../
-'
-cd interactions.U/combine_parallel
 
-  echo "standalone 200 nega proteins and RNA interaction computing"
-  date +"%m-%d-%y %r"
-  mv pre-compiled/out.merged.posi.txt out.merged.posi.txt
-  '
+#cd interactions.U/combine_parallel
+
+#  echo "standalone 200 nega proteins and RNA interaction computing"
+#  date +"%m-%d-%y %r"
+#  mv pre-compiled/out.merged.posi.txt out.merged.posi.txt
+
 #  prot_lib_folder=$(echo $script_folder | awk '{print $0"/nega.prot.libraries/"}')
 #  python multiplier.py 10 $prot_lib_folder 'rna'
-'  cat pre-compiled/* > out.merged.nega.txt
-  rm -r pre-compiled/*
-  mv out.merged.nega.txt  pre-compiled/out.merged.nega.txt
-  mv out.merged.posi.txt  pre-compiled/out.merged.posi.txt
+# cat pre-compiled/* > out.merged.nega.txt
+#  rm -r pre-compiled/*
+#  mv out.merged.nega.txt  pre-compiled/out.merged.nega.txt
+#  mv out.merged.posi.txt  pre-compiled/out.merged.posi.txt
 
-  cd binding_sites
-    perl binding_sites.pl > table.txt
-    '
+#  cd binding_sites
+#    perl binding_sites.pl > table.txt
+
 #    Lrna=$(grep $case $script_folder/positives_info.txt | awk '{print $2}')
 #    Lfragm=$(grep $case $script_folder/positives_info.txt | awk '{print $3}')
     #Lrna=$(grep $case $script_folder/lincrnas_info.txt | awk '{print $2}')
