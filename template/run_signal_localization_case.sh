@@ -74,7 +74,7 @@ cd ../
 #  prot_lib_folder=$(echo $script_folder | awk '{print $0"/nega.prot.libraries/"}')
 #  python multiplier.py 10 $prot_lib_folder 'rna'
 # cat pre-compiled/* > out.merged.nega.txt
-#  rm -r pre-compiled/*
+#  rm -fr pre-compiled/*
 #  mv out.merged.nega.txt  pre-compiled/out.merged.nega.txt
 #  mv out.merged.posi.txt  pre-compiled/out.merged.posi.txt
 
@@ -100,6 +100,7 @@ cd ../
 #cp outputs/$case.binding_sites.png ../outputs/
 
 cp outputs/filter.tmp ../outputs/$case.filter.tmp
-cd ../
-rm -r $case
+
 #cp outputs/interactions.$1.$3.txt ../outputs/$case.interactions.$1.$3.txt
+cd ../
+rm -fr $case
