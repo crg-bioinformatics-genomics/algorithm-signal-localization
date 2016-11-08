@@ -98,5 +98,8 @@ cd ../
 #cp outputs/$case.smallTable.txt ../outputs/
 #cp outputs/$case.bigTable.txt ../outputs/
 #cp outputs/$case.binding_sites.png ../outputs/
+
 cp outputs/filter.tmp ../outputs/$case.filter.tmp
+cd ../
+rm -r $case
 #cp outputs/interactions.$1.$3.txt ../outputs/$case.interactions.$1.$3.txt
