@@ -103,4 +103,4 @@ cp outputs/filter.tmp ../outputs/$case.filter.tmp
 
 #cp outputs/interactions.$1.$3.txt ../outputs/$case.interactions.$1.$3.txt
 cd ../
-#rm -fr $case
+rm -fr $case
