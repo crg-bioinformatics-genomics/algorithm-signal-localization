@@ -98,9 +98,9 @@ cd ../
 #cp outputs/$case.smallTable.txt ../outputs/
 #cp outputs/$case.bigTable.txt ../outputs/
 #cp outputs/$case.binding_sites.png ../outputs/
-
+cp filter/processed.txt ../outputs/$case.processed.txt
 cp outputs/filter.tmp ../outputs/$case.filter.tmp
 
 #cp outputs/interactions.$1.$3.txt ../outputs/$case.interactions.$1.$3.txt
 cd ../
-rm -fr $case
+#rm -fr $case
