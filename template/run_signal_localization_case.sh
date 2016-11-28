@@ -52,55 +52,7 @@ cd interactions.U/
       python multiplier.py 10 "prot" "rna"
       echo "# protein / rna / raw score / dp " > ../../outputs/interactions.$1.$3.txt
       cat pre-compiled/* >> ../../outputs/interactions.$1.$3.txt
-      mv pre-compiled/* pre-compiled/out.merged.posi.txt
+      #mv pre-compiled/* pre-compiled/out.merged.posi.txt
 cd ../../
 
-cd filter
-
-    echo "Global Score computing"
-    date +"%m-%d-%y %r"
-    awk '{print "protein_"$1,"rna_"$2,$3,$4}' ../interactions.U/combine_parallel/pre-compiled/out.merged.posi.txt > interactions.$1.$3.txt
-    bash start.sh interactions.$1.$3.txt -1 > processed.txt
-    awk '{printf "%.2f\n", ($2+1)/2}' processed.txt > ../outputs/filter.tmp
-
 cd ../
-
-#cd interactions.U/combine_parallel
-
-#  echo "standalone 200 nega proteins and RNA interaction computing"
-#  date +"%m-%d-%y %r"
-#  mv pre-compiled/out.merged.posi.txt out.merged.posi.txt
-
-#  prot_lib_folder=$(echo $script_folder | awk '{print $0"/nega.prot.libraries/"}')
-#  python multiplier.py 10 $prot_lib_folder 'rna'
-# cat pre-compiled/* > out.merged.nega.txt
-#  rm -fr pre-compiled/*
-#  mv out.merged.nega.txt  pre-compiled/out.merged.nega.txt
-#  mv out.merged.posi.txt  pre-compiled/out.merged.posi.txt
-
-#  cd binding_sites
-#    perl binding_sites.pl > table.txt
-
-#    Lrna=$(grep $case $script_folder/positives_info.txt | awk '{print $2}')
-#    Lfragm=$(grep $case $script_folder/positives_info.txt | awk '{print $3}')
-    #Lrna=$(grep $case $script_folder/lincrnas_info.txt | awk '{print $2}')
-    #Lfragm=$(grep $case $script_folder/lincrnas_info.txt | awk '{print $3}')
-#    GS=$(awk '{print $1}' ../../../outputs/filter.tmp | head -1)
-#    Rscript binding_sites.r table.txt "$Lrna" "$Lfragm" "$GS"
-#    convert -density 300 -trim binding_sites.pdf -quality 100 -resize 900x231 binding_sites.png
-#    cp binding_sites.png ../../../outputs/$case.binding_sites.png
-#    awk '(NR>1)' smallTable.txt | sort -k5nr | awk 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%.3f</td>\n\t</tr>\n", NR,$1"-"$2, $3"-"$4,$5}END{print """</tbody>"""}' > ../../../outputs/$case.binding_sites.html
-#    cp smallTable.txt ../../../outputs/$case.smallTable.txt
-#    cp bigTable.txt ../../../outputs/$case.bigTable.txt
-
-#cd ../../../
-#cp outputs/$case.binding_sites.html ../outputs/
-#cp outputs/$case.smallTable.txt ../outputs/
-#cp outputs/$case.bigTable.txt ../outputs/
-#cp outputs/$case.binding_sites.png ../outputs/
-cp filter/processed.txt ../outputs/$case.processed.txt
-cp outputs/filter.tmp ../outputs/$case.filter.tmp
-
-#cp outputs/interactions.$1.$3.txt ../outputs/$case.interactions.$1.$3.txt
-cd ../
-rm -fr $case
