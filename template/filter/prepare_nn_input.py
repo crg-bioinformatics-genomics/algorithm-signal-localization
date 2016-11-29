@@ -7,10 +7,12 @@ import numpy as np
 def main(argv):
 
     inter_file=sys.argv[1]
+    rna_id=sys.argv[2]
     inter_file_handle=open(inter_file,'r')
     dictionary=dict()
     fr_list=[]
-    writefile=open("input1.tmp",'w')
+    writefile=open("input.raw.tmp",'w')
+    fragments=open(rna_id,'w')
     for line in inter_file_handle:
         if line.startswith("#"):
             continue
@@ -33,7 +35,7 @@ def main(argv):
         dictionary[key].append(catrapid_score)
 
     for key, value in dictionary.iteritems():
-
+        fragments.writelines(key+'\n')
         fr_list.append((round(np.mean(value),2),round(np.std(value),2)))
     #fr_list.append((lp,lr))
     for r in fr_list:
