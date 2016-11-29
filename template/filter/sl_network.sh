@@ -1,7 +1,8 @@
 #!/bin/bash
 file=$1;
 case=$2
-perl -ne '$_=~ m/^(\S+)\_\d+\-\d+\s+\S+_\d+\-\d+\s+\S+\s+\S+/g;$prot=$1;print $prot,"\n";' $file | uniq > tmp/names.txt
+echo $case > tmp/names.txt
+
 
 f="signal_localization_params"
 
@@ -11,4 +12,3 @@ cat $f/min.relative.i.txt $f/max.relative.i.txt  $f/min.relative.o.txt $f/max.re
 awk '{a[NR]=$0} (NR%2==1){s=NF} END{printf "%i\t%i\t%i\n",NR/2,s, 100; for(i=1;i<=NR;i++){printf "%s\n",a[i]}}' tmp/norm.tmp > input.txt
 
 ./scripts/sl_nnetwrok input.txt ./models/secondary.11 | awk '(NF==3)' > tmp/output.txt
-paste tmp/names.txt tmp/output.txt | awk '{print $1, $NF}'

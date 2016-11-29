@@ -60,8 +60,9 @@ cd filter
     echo "Signal Localisation computing"
 
     date +"%m-%d-%y %r"
-    bash sl_network.sh ../outputs/interactions.$1.$3.txt $case > $case.processed.txt
-    echo $case $(awk '{printf "%.2f\n", ($2+1)/2}' $case.processed.txt) > ../filter.processed.txt
+    bash sl_network.sh ../outputs/interactions.$1.$3.txt $case
+    echo $case $(awk '{printf "%.2f\n", ($3+1)/2}' tmp/output.txt) > ../outputs/$case.filter.processed.txt
+    paste -d " "  $case tmp/output.txt | awk '(NF>3)' > ../outputs/$case.fragments.score.txt
 cd ../
 
 cd ../
