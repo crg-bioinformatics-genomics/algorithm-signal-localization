@@ -50,9 +50,18 @@ cd interactions.U/
 
 
       python multiplier.py 10 "prot" "rna"
-      echo "# protein / rna / raw score / dp " > ../../outputs/interactions.$1.$3.txt
+      echo "#protein / rna / raw score / dp " > ../../outputs/interactions.$1.$3.txt
       cat pre-compiled/* >> ../../outputs/interactions.$1.$3.txt
       #mv pre-compiled/* pre-compiled/out.merged.posi.txt
-cd ../../
+    cd ../
+cd ../
+cd filter
+
+    echo "Signal Localisation computing"
+
+    date +"%m-%d-%y %r"
+    bash sl_network.sh ../outputs/interactions.$1.$3.txt > $case.processed.txt
+    echo $case $(awk '{printf "%.2f\n", ($2+1)/2}' $case.processed.txt) > ../filter.processed.txt
+cd ../
 
 cd ../
