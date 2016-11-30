@@ -36,7 +36,7 @@ def main(argv):
 
     for key, value in dictionary.iteritems():
         fragments.writelines(key+'\n')
-        fr_list.append((round(np.mean(value),2),round(np.std(value),2)))
+        fr_list.append((np.mean(value),np.std(value)))
     #fr_list.append((lp,lr))
     for r in fr_list:
         writefile.writelines(' '.join(map(str, (r)))+' ')
