@@ -58,11 +58,17 @@ cd ../
 cd filter
 
     echo "Signal Localisation computing"
-
+    Lrna=$(grep $case $script_folder/lincrnas_info.txt | awk '{print $2}')
+    Lfragm=$(grep $case $script_folder/lincrnas_info.txt | awk '{print $3}')
     date +"%m-%d-%y %r"
     bash sl_network.sh ../outputs/interactions.$1.$3.txt $case
-    echo $case $(awk '{printf "%.2f\n", ($3+1)/2}' tmp/output.txt) > ../outputs/$case.filter.processed.txt
-    paste -d " "  $case tmp/output.txt | awk '(NF>3)' > ../outputs/$case.fragments.score.txt
-cd ../
+    paste -d " "  $case tmp/output.raw.txt | awk '(NF>3){print $1, $2 , $NF}' > tmp/output.txt
+    echo "#startRNA  stopRNA scoreRaw" > ../outputs/$case.fragments.score.txt
+    python formater.py tmp/output.txt $Lrna>> ../outputs/$case.fragments.score.txt
 
+cd ../
+  Rscript plotter.r ./outputs/$case.fragments.score.txt
+  convert -density 300 -trim binding_sites.pdf -quality 100 -resize 900x231 binding_sites.png
+  mv binding_sites.png ./outputs/$case.binding_sites.png
+  cp -r ./outputs/* ../outputs/
 cd ../
