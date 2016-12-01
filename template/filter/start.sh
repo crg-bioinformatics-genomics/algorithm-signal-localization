@@ -5,24 +5,15 @@
 # pcre-config --libs --cflags
 
 # cleans
-rm input*
+
 echo "del" > new.run; rm new.run
 
 # input file
 file=$1;
 
-# mode: 1 is long RNA option and -1 is uniform fragmentation
-#mode=$2;
 
-# long RNA option
-
-
-#if [ $mode != 1 ] ;then
-perl -ne '$_=~ m/^(\S+)\_\d+\-\d+\s+\S+_\d+\-\d+\s+\S+\s+\S+/g;$prot=$1;print $prot,"\n";' $file | uniq > tmp/names.txt
 cp $file new.run
 sh scripts/run.sh new run > tmp/input.2.tmp
-#awk '(NF>2){print $0, $1, -1}' tmp/input.2.tmp > tmp/data.tmp
-#fi
 
 f="params"
 
@@ -38,4 +29,4 @@ awk '{a[NR]=$0} (NF!=1){s=NF} END{printf "%i\t%i\t%i\n",NR/2,s, 1; for(i=1;i<=NR
 
 
 ./scripts/test input.txt ./models/secondary.50 | awk '(NF==3)' > tmp/output.txt
-paste tmp/names.txt tmp/output.txt | awk '{print $1, $NF}'
+cat tmp/output.txt | awk '{print $1, $NF}'
