@@ -58,6 +58,12 @@ cd interactions.U/
 cd ../
 cd filter
 
+    echo "Global Score computing"
+    date +"%m-%d-%y %r"
+    awk '{print "protein_"$1,"rna_"$2,$3,$4}' ../interactions.U/combine_parallel/pre-compiled/out.merged.posi.txt > interactions.$1.$3.txt
+    bash start.sh interactions.$1.$3.txt -1 > processed.txt
+    awk '{printf "%.2f\n", ($2+1)/2}' processed.txt > ../outputs/$case.filter.tmp
+
     echo "Signal Localisation computing"
     Lrna=$(grep $case $script_folder/lincrnas_info.txt | awk '{print $2}')
     Lfragm=$(grep $case $script_folder/lincrnas_info.txt | awk '{print $3}')
