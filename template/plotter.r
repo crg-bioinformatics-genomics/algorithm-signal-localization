@@ -10,7 +10,7 @@ colsabs<- paste0(pal(n)[as.numeric(cut(c(val,1,0), breaks = n))], 99)
 colsabs[which(!startsWith(colsabs,"#"))] ="#000000"
 
 colsrel<- paste0(pal(n)[as.numeric(cut(val, breaks = n))], 99)
-colsrel[which(!startsWith(colsrel,"#"))] ="#000000"
+colsrel[which(!startsWith(colsrel,"#"))] ="#FFFFFF"
 
 pdf("binding_sites.pdf",width=10,height=3.5)
 
