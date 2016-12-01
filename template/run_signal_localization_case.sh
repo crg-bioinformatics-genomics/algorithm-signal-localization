@@ -2,6 +2,7 @@
 script_folder=$7
 case=$8
 ./flip -u $5
+threshold=-0.2
 sed 's/[\| | \\ | \/ | \* | \$ | \# | \? | \! ]/./g' $5 | awk '(length($1)>=1)' | awk '($1~/>/){gsub(" ", "."); printf "\n%s\t", $1} ($1!~/>/){printf "%s", toupper($1)}' | awk '(NF==2)' | head -1 | sed 's/>\.//g;s/>//g' | awk '{print substr($1,1,12)"_"NR, toupper($2)}' >  ./protein/outfile
 
 if [[ ! -s "./protein/outfile" ]]; then
@@ -66,7 +67,9 @@ cd filter
     echo "#startRNA  stopRNA scoreRaw" > ../outputs/$case.fragments.score.txt
     python formater.py tmp/output.txt $Lrna>> ../outputs/$case.fragments.score.txt
 
+
 cd ../
+  awk '(NR>1)&&($3>=-0.25)&&($3!=nan)' ./outputs/$case.fragments.score.txt | sort -k3nr | awk 'BEGIN{printf "<tbody>\n"}{printf "\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%.3f</td>\n\t</tr>\n", NR,$1"-"$2, $3}END{print """</tbody>"""}' > ./outputs/$case.binding_sites.html
   Rscript plotter.r ./outputs/$case.fragments.score.txt
   convert -density 300 -trim binding_sites.pdf -quality 100 -resize 900x231 binding_sites.png
   mv binding_sites.png ./outputs/$case.binding_sites.png
