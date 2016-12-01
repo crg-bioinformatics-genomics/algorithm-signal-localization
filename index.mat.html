@@ -79,7 +79,7 @@
         </span>
         <br />
 				<br />
-				<h4>Signal Localization</h4><br />
+				<h4 style='margin-bottom:30px;'>Signal Localization</h4><br />
 					<div id="results">
 					</div>
 
@@ -153,8 +153,6 @@
 														 async:   false
 												});
 												htmlLines="<div>"
-												htmlLines += "<br>"
-												htmlLines += "<br>"
 												htmlLines += "<h2 align='center'> The protein - "+lines[i]+" pair is predicted to interact with propensity (Global Score): "+gs
 												htmlLines += "</h2><br />"
 												htmlLines += "    <div style='float:left;width:940px;'>"
@@ -163,17 +161,18 @@
 							          htmlLines += "    <div style='float:left;width:940px;'>"
 							          htmlLines += "        <h3>(<a href='"+lines[i]+".fragments.score.txt'>Download the text file of the results</a>):</h3>"
 							          htmlLines += "        <br />"
+												htmlLines += "			<div style='height:200px; overflow:auto; margin-bottom:50px;'>"
 							          htmlLines += "        <table cellpadding='0' cellspacing='0' border='0' id='"+lines[i]+"' class='sortable' style='margin-bottom:50px;'>"
 							          htmlLines += "            <thead>"
 							          htmlLines += "                <tr>"
 							          htmlLines += "                    <th><h3>'#'</h3></th>"
-							          htmlLines += "                    <th><h3>'Protein region'</h3></th>"
 							          htmlLines += "                    <th><h3>'RNA region'</h3></th>"
-							          htmlLines += "  									<th><h3>'Z score'</h3></th>"
+							          htmlLines += "  									<th><h3>'Interaction propensity score'</h3></th>"
 							          htmlLines += "                </tr>"
 												htmlLines += "            </thead>"
 												htmlLines += table
 												htmlLines += "      </table>"
+												htmlLines += "   	</div>"
 												htmlLines += "   </div>"
 												htmlLines += "</div>"
 												$("#results").append(htmlLines)
