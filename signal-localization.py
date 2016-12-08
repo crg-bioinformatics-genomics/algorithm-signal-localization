@@ -5,6 +5,7 @@ import os
 import subprocess
 import shutil, errno
 import sys
+import IPython
 import json
 
 # we want to be agnostic to where the script is ran
@@ -42,7 +43,7 @@ parser.add_argument(
 for item in task_definition['form_fields']:
 	nargs = 1 if item['required'] else "?"
 	parser.add_argument(
-	   '-FORM%s'%item['name'], type=str, default=["none"], nargs=1,
+	   '-FORM%s'%item['name'], type=str, default="none", nargs=1,
 	   help='Form argument: %s' % item)
 
 
@@ -67,29 +68,51 @@ protSeq = []
 for record in SeqIO.parse(StringIO.StringIO(args.FORMprotein_seq[0]), "fasta"):
 	protSeq.append(record)
 	break
-	
+
 protFile = os.path.join(OUTPUT_PATH.replace("output/", ""),"protein.fasta")
 output_handle = open(protFile, "w")
 SeqIO.write(protSeq, output_handle, "fasta")
 output_handle.close()
 
+rnalist=[]
+
+
+rnafolder=os.path.join(OUTPUT_PATH.replace("output/", ""),"rnas")
+if not os.path.exists(rnafolder):
+    os.makedirs(rnafolder)
+
+
+if args.FORMmode[0]=="custom":
+
+
+	Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
+	if Rpat.match(args.FORMtranscript_ids[0]) == None:
+
+		args.FORMtranscript_ids[0] = ">input_rna\n"+args.FORMtranscript_ids[0]
+	rnaSeq = []
+	for record in SeqIO.parse(StringIO.StringIO(args.FORMtranscript_ids[0]), "fasta"):
+		rnaSeq.append(record)
+		rnalist.append(record.id)
+	valid_entries=0
+	rnaAllFile=os.path.join(OUTPUT_PATH,"rna.fasta")
+	output_all_handle = open(rnaAllFile, "w")
+	for entry in rnaSeq:
+		if len(entry.seq)>0:
+			valid_entries+=1
+			rnaFile = os.path.join(rnafolder,entry.id)
+			output_handle = open(rnaFile, "w")
+			SeqIO.write(entry, output_handle, "fasta")
+			SeqIO.write(entry, output_all_handle, "fasta")
+			output_handle.close()
+	output_all_handle.close()
+else:
+
+	rnalist=args.FORMtranscript_ids[0].split()
+
 rnaFile=os.path.join(OUTPUT_PATH.replace("output/", ""),"rnaList.txt")
 rnaFilehandle=open(rnaFile,'w')
-import IPython
 
-rnalist=[]
-if args.FORMTranscript_1[0]!="none":
-	rnalist.append(args.FORMTranscript_1[0])
-if args.FORMTranscript_2[0]!="none":
-	rnalist.append(args.FORMTranscript_2[0])
-if args.FORMTranscript_3[0]!="none":
-	rnalist.append(args.FORMTranscript_3[0])
-if args.FORMTranscript_4[0]!="none":
-	rnalist.append(args.FORMTranscript_4[0])
-if args.FORMTranscript_5[0]!="none":
-	rnalist.append(args.FORMTranscript_5[0])
 
-rnalist=set(rnalist)
 for elem in rnalist:
 	rnaFilehandle.writelines(elem+'\n')
 rnaFilehandle.close()
@@ -111,7 +134,7 @@ else:
 
 logfile = open("pylog."+str(random_number)+".txt","w")
 
-cmd = """bash signal-localization.sh "{}" "{}" "{}" "{}" "{}" "{}"  """.format(random_number, args.FORMemail[0], title, "150", protFile,rnaFile)
+cmd = """bash signal-localization.sh "{}" "{}" "{}" "{}" "{}" "{}" "{}" "{}"  """.format(random_number, args.FORMemail[0], title, "150", protFile,rnaFile,args.FORMmode[0],rnafolder)
 print cmd
 p = subprocess.Popen(cmd, cwd=SCRIPT_PATH, shell=True)
 

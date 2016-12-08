@@ -27,41 +27,26 @@ nav_links:
             http://pasteur.crg.es/portal/page/portal/827A462EAB6802B3E04012AC0E01291B
 
 form_fields:
+    -   name: title
+        description: Submission label (optional)
+        required: No
+        type: text
     -   name: protein_seq
         description: Protein sequence (FASTA format)
         required: Yes
         type: textarea
         min_length: 50
         max_length: 10000
-    -   name: title
-        description: Submission label (optional)
-        required: No
-        type: text
-    -   name: Transcript_1
-        description: Transcript ID 1
+    -   name: transcript_ids
+        description: Transcript IDs
         required: Yes
         type: textarea
-        max_length: 20
-    -   name: Transcript_2
-        description: Transcript ID 2 (optional)
-        required: No
+        hidden: Yes
+    -   name: mode
+        description: read custom library or lincrnas
         type: textarea
-        max_length: 20
-    -   name: Transcript_3
-        description: Transcript ID 3 (optional)
-        required: No
-        type: textarea
-        max_length: 20
-    -   name: Transcript_4
-        description: Transcript ID 4 (optional)
-        required: No
-        type: textarea
-        max_length: 20
-    -   name: Transcript_5
-        description: Transcript ID 5 (optional)
-        required: No
-        type: textarea
-        max_length: 20
+        hidden: Yes
+        required: Yes
     -   name: email
         description: Email address (optional, used for notification)
         type: email
@@ -71,13 +56,12 @@ examples:
     #-   reference_id:   55985
     #    title:          <br>CELF1
     #    description:    a canonical RNA-binding protein ( from <a href="http://www.sciencedirect.com/science/article/pii/S0300908405002634" target="_blank">Biochimie 2006</a>)
-    -   reference_id:   58967
-        title:          FMRP
-        description:    a canonical RNA-binding protein ( from <a href="http://www.nature.com/nrn/journal/v6/n5/box/nrn1667_BX1.html" target="_blank">Nature Reviews Neuroscience 2005</a>)
-    -   reference_id:   58968
-        title:          TMM70
-        description:    a non RNA-binding protein ( from <a href="http://www.ncbi.nlm.nih.gov/pubmed/22658674" target="_blank">Cell 2012</a>)
-
+    -   reference_id:
+        title:
+        description:
+    -   reference_id:
+        title:
+        description:
 algorithm:
     command:              "signal-localization.py -output_dir=<output_dir>"
     processing_timeout:   7200

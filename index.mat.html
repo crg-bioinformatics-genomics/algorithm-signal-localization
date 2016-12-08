@@ -95,23 +95,6 @@
 
                     })
 
-										function table_sorter(arg_table)
-										{
-
-											sorter = new TINY.table.sorter("sorter");
-											sorter.head = "head";
-											sorter.asc = "asc";
-											sorter.desc = "desc";
-											sorter.even = "evenrow";
-											sorter.odd = "oddrow";
-											sorter.evensel = "evenselected";
-											sorter.oddsel = "oddselected";
-											sorter.paginate = true;
-											sorter.currentid = "currentpage";
-											sorter.limitid = "pagelimit";
-											sorter.init(arg_table,0);
-										}
-
 										function initialise_page() {
 											fetch_url = url_directory+"/rnaList.txt"
 											jQuery.ajax({
@@ -162,12 +145,12 @@
 							          htmlLines += "        <h3>(<a href='"+lines[i]+".fragments.score.txt'>Download the text file of the results</a>):</h3>"
 							          htmlLines += "        <br />"
 												htmlLines += "			<div style='height:200px; overflow:auto; margin-bottom:50px;'>"
-							          htmlLines += "        <table cellpadding='0' cellspacing='0' border='0' id='"+lines[i]+"' class='sortable' style='margin-bottom:50px;'>"
+							          htmlLines += "        <table cellpadding='0' cellspacing='0' border='0' id='"+lines[i]+"' class='tablesorter' style='margin-bottom:50px;'>"
 							          htmlLines += "            <thead>"
 							          htmlLines += "                <tr>"
-							          htmlLines += "                    <th><h3>'#'</h3></th>"
-							          htmlLines += "                    <th><h3>'RNA region'</h3></th>"
-							          htmlLines += "  									<th><h3>'Interaction propensity score'</h3></th>"
+							          htmlLines += "                    <th>'#'</th>"
+							          htmlLines += "                    <th class=\"nosort\">'RNA region'</th>"
+							          htmlLines += "  									<th class=\"nosort\">'Interaction propensity score'</th>"
 							          htmlLines += "                </tr>"
 												htmlLines += "            </thead>"
 												htmlLines += table
@@ -176,6 +159,9 @@
 												htmlLines += "   </div>"
 												htmlLines += "</div>"
 												$("#results").append(htmlLines)
+
+												$(".red").css("background-color", "#FBDDDD");
+												$(".green").css("background-color", "#BCF9C8");
 
 											}
 
