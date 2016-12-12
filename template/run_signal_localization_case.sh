@@ -52,7 +52,7 @@ cd interactions.U/
 
 
       python multiplier.py 10 "prot" "rna"
-      
+
       cat pre-compiled/* >> ../../outputs/interactions.$1.$3.txt
     cd ../
 cd ../
@@ -62,7 +62,7 @@ cd filter
     date +"%m-%d-%y %r"
     awk '{print "protein_"$1,"rna_"$2,$3,$4}' ../outputs/interactions.$1.$3.txt > interactions.$1.$3.txt
     bash gs_network.sh interactions.$1.$3.txt $case
-    paste tmp/names.txt tmp/output.txt | awk '{print $1, $NF}'> processed.txt
+    paste tmp/names.gs.txt tmp/output.gs.txt | awk '{print $1, $NF}'> processed.txt
     awk '{printf "%.2f\n", ($2+1)/2}' processed.txt > ../outputs/$case.filter.tmp
 
     echo "Signal Localisation computing"
