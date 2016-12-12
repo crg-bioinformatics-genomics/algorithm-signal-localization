@@ -52,7 +52,7 @@ cd interactions.U/
 
 
       python multiplier.py 10 "prot" "rna"
-      echo "#protein / rna / raw score / dp " > ../../outputs/interactions.$1.$3.txt
+      
       cat pre-compiled/* >> ../../outputs/interactions.$1.$3.txt
     cd ../
 cd ../
