@@ -61,7 +61,9 @@ cd filter
     echo "Global Score computing"
     date +"%m-%d-%y %r"
     awk '{print "protein_"$1,"rna_"$2,$3,$4}' ../outputs/interactions.$1.$3.txt > interactions.$1.$3.txt
-    bash start.sh interactions.$1.$3.txt  > processed.txt
+    bash gs_network.sh interactions.$prot_rna.txt $case
+    paste tmp/names.txt tmp/output.txt | awk '{print $1, $NF}' > processed.txt  
+
     awk '{printf "%.2f\n", ($2+1)/2}' processed.txt > ../outputs/$case.filter.tmp
 
     echo "Signal Localisation computing"
@@ -81,7 +83,7 @@ cd filter
 
 
 cd ../
-  awk '(NR>1)&&($3!="nan")' ./outputs/$case.fragments.score.txt | sort -k3nr | awk 'BEGIN{printf "<tbody>\n"}{if ($3 >=0.313) class="green" ; else class="red" fi; printf "\t<tr class=\"%s\">\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%.3f</td>\n\t</tr>\n", class,NR,$1"-"$2, $3}END{print """</tbody>"""}' > ./outputs/$case.binding_sites.html
+  awk '(NR>1)&&($3!="nan")' ./outputs/$case.fragments.score.txt | sort -k3nr | awk 'BEGIN{printf "<tbody>\n"}{if ($3 >=0.5) class="green" ; else class="red" fi; printf "\t<tr class=\"%s\">\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%.3f</td>\n\t</tr>\n", class,NR,$1"-"$2, $3}END{print """</tbody>"""}' > ./outputs/$case.binding_sites.html
   Rscript plotter.r ./outputs/$case.fragments.score.txt
   convert -density 300 -trim binding_sites.pdf -quality 100 -resize 900x231 binding_sites.png
   mv binding_sites.png ./outputs/$case.binding_sites.png
