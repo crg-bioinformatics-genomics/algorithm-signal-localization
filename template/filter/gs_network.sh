@@ -2,6 +2,7 @@
 file=$1
 rna=$2
 echo $rna > tmp/names.txt
+
 n_outputs=1
 n_inputs=202
 python prepare_nn_input.py $file $rna $n_inputs $n_outputs

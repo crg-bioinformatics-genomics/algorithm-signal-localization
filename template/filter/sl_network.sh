@@ -1,5 +1,5 @@
 #!/bin/bash
-file=$1;
+file=$1
 case=$2
 echo $case > tmp/names.txt
 
