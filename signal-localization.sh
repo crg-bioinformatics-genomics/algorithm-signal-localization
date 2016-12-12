@@ -39,6 +39,9 @@ for i in `awk '{print $0}' $6`;do
 
 				cd fragmentation
 					echo "Custom Rna fragmentation"
+					if [ ! -s ../rna.libraries.U/rna_seqs ]; then
+						mkdir ../rna.libraries.U/rna_seqs
+					fi
 					mkdir ../rna.libraries.U/rna_seqs/1
 					bash rna.job.cutter.sh ../rna/rna_seqs_oneline/$i > ../rna.libraries.U/rna_seqs/1/$i.rna.fragm.seq;
 				cd ..
