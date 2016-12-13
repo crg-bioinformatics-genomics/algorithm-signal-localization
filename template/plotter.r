@@ -17,8 +17,8 @@ pdf("binding_sites.pdf",width=10,height=3.5)
 plot(x= start, y= rep(0, n), type= 'n', bty= 'n', yaxt= 'n',
      ylab= '', xlab= 'Nucleotide Position', xlim= range(c(start, end)), ylim= c(0, 1))
 axis(1, at=c(0,max(end)), labels=c("",max(end)), lwd.ticks=1)
-rect(xleft= start, xright= end, ybottom= 0, ytop= 0.1, border= NA, col= colsabs)
-#rect(xleft= start, xright= end, ybottom= 0.1, ytop= 0.2, border= NA, col= colsrel)
+#rect(xleft= start, xright= end, ybottom= 0, ytop= 0.1, border= NA, col= colsabs)
+rect(xleft= start, xright= end, ybottom= 0.1, ytop= 0.2, border= NA, col= colsrel)
 #text(x= start, y= 0.12, labels= sprintf("%.2f", val), adj= c(0,0))
 
 dev.off()
