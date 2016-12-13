@@ -4,7 +4,7 @@ start<-sltable[,1]
 end<-sltable[,2]
 val<-sltable[,3]
 n=length(sltable[,1])
-pal<- colorRampPalette(c('blue','white', 'red'))
+pal<- colorRampPalette(c('white', 'red'))
 
 colsabs<- paste0(pal(n)[as.numeric(cut(c(val,1,0), breaks = n))], 99)
 colsabs[which(!startsWith(colsabs,"#"))] ="#FFFFFF"
