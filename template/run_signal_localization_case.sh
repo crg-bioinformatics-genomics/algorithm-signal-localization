@@ -76,13 +76,14 @@ cd filter
     fi
     date +"%m-%d-%y %r"
     bash sl_network.sh ../outputs/interactions.$1.$3.txt $case
-    paste -d " "  $case tmp/output.raw.norm.final.txt | awk '(NF>3){printf "%s %s %.7f\n", $1, $2 , ($NF+1)/2}' > tmp/output.txt
+    paste -d " "  $case tmp/output.raw.norm.final.txt | awk '(NF>3){printf "%s %s %.7f\n", $1, $2 , $NF}' > tmp/output.txt
     echo "#startRNA  stopRNA scoreRaw" > ../outputs/$case.fragments.score.txt
     python formater.py tmp/output.txt $Lrna>> ../outputs/$case.fragments.score.txt
+    thr=$(cat threshold.norm)
 
 
 cd ../
-  awk '(NR>1)&&($3!="nan")' ./outputs/$case.fragments.score.txt | sort -k3nr | awk 'BEGIN{printf "<tbody>\n"}{if ($3 >=0.25) class="red" ; else class="white" fi; printf "\t<tr class=\"%s\">\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%.3f</td>\n\t</tr>\n", class,NR,$1"-"$2, $3}END{print """</tbody>"""}' > ./outputs/$case.binding_sites.html
+  awk '(NR>1)&&($3!="nan")' ./outputs/$case.fragments.score.txt | sort -k3nr | awk 'BEGIN{printf "<tbody>\n"}{if ($3 >="'$thr'") class="red" ; else class="white" fi; printf "\t<tr class=\"%s\">\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%.3f</td>\n\t</tr>\n", class,NR,$1"-"$2, $3}END{print """</tbody>"""}' > ./outputs/$case.binding_sites.html
   awk '($3!="nan"){print $0}' ./outputs/$case.fragments.score.txt >tmp.1
   mv tmp.1 ./outputs/$case.fragments.score.txt
   Rscript plotter.r ./outputs/$case.fragments.score.txt
