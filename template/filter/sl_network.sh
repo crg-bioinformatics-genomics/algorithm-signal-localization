@@ -20,6 +20,6 @@ awk 'BEGIN { ORS=" " };{print $3}' tmp/output.raw.txt >tmp/output.raw.result.txt
 echo "" >>tmp/output.raw.result.txt
 awk '{print $1, $2}' tmp/output.raw.txt >tmp/output.raw.columns.txt
 MG=$(cat $f/max.relative.global.txt)
-cat $f/min.relative.o.txt $f/max.relative.o.txt  tmp/output.raw.result.txt |   awk '(NR==1){for(i=1;i<=NF;i++){m[i]=$i}} (NR==2){for(i=1;i<=NF;i++){M[i]=$i}}  (NR>2){for(i=1;i<=NF;i++){ s=0; s=(($i/2+1/2)*(M[i]-m[i])+m[i])/"'$MG'"; printf "%4.2f\t",s} printf "\n"}' >tmp/output.norm.txt
+cat $f/min.relative.o.$model.txt $f/max.relative.o.$model.txt  tmp/output.raw.result.txt |   awk '(NR==1){for(i=1;i<=NF;i++){m[i]=$i}} (NR==2){for(i=1;i<=NF;i++){M[i]=$i}}  (NR>2){for(i=1;i<=NF;i++){ s=0; s=(($i/2+1/2)*(M[i]-m[i])+m[i])/"'$MG'"; printf "%4.2f\t",s} printf "\n"}' >tmp/output.norm.txt
 cat tmp/output.norm.txt | tr '\t' '\n' >tmp/tmp.1
 paste -d " "  tmp/output.raw.columns.txt tmp/tmp.1 >tmp/output.raw.norm.final.txt
