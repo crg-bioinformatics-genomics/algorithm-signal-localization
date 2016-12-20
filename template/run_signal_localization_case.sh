@@ -76,7 +76,9 @@ cd filter
     fi
     date +"%m-%d-%y %r"
     bash sl_network.sh ../outputs/interactions.$1.$3.txt $case
-    paste -d " "  $case tmp/output.raw.norm.final.txt | awk '(NF>3){printf "%s %s %.7f\n", $1, $2 , $NF}' > tmp/output.txt
+
+    cat $case | sort -nk1 >$case.names.txt
+    paste -d " "  $case.names.txt tmp/output.raw.norm.final.txt | awk '(NF>3){printf "%s %s %.7f\n", $1, $2 , $NF}' > tmp/output.txt
     echo "#startRNA  stopRNA scoreRaw" > ../outputs/$case.fragments.score.txt
     python formater.py tmp/output.txt $Lrna>> ../outputs/$case.fragments.score.txt
     thr=$(cat threshold.norm)
