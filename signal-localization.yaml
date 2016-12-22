@@ -42,6 +42,8 @@ form_fields:
         required: Yes
         type: textarea
         hidden: Yes
+        min_length: 50
+        max_length: 30000
     -   name: mode
         description: read custom library or lincrnas
         type: textarea
@@ -56,7 +58,7 @@ examples:
     #-   reference_id:   55985
     #    title:          <br>CELF1
     #    description:    a canonical RNA-binding protein ( from <a href="http://www.sciencedirect.com/science/article/pii/S0300908405002634" target="_blank">Biochimie 2006</a>)
-    -   reference_id: 96536
+    -   reference_id: 96558
         title: P78344 NEAT1
         description: a positive protein-RNA pair, validated by eCLIP assay.
     -   reference_id: 96539
@@ -64,7 +66,7 @@ examples:
         description: a negative protein-RNA pair, validated by eCLIP assay.
 algorithm:
     command:              "signal-localization.py -output_dir=<output_dir>"
-    processing_timeout:   7200
+    processing_timeout:   72000
 
 # for the processing part
 output:
