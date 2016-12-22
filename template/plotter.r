@@ -21,7 +21,7 @@ plot(x= start, y= rep(0, n), type= 'n', bty= 'n', yaxt= 'n', ylab= '', xlab= 'Nu
 axis(1, at=c(0,max(end)), labels=c("",""), lwd.ticks=1)
 
 rect(xleft= start, xright= end, ybottom= 0, ytop= 0.1, border= NA, col= colsabs)
-#rect(xleft= start, xright= end, ybottom= 0.1, ytop= 0.2, border= NA, col= colsrel)
+rect(xleft= start, xright= end, ybottom= 0.1, ytop= 0.2, border= NA, col= colsrel)
 #text(x= start, y= 0.12, labels= sprintf("%.2f", val), adj= c(0,0))
 
 dev.off()
