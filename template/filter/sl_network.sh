@@ -16,12 +16,12 @@ cat $f/min.relative.i.$model.txt $f/max.relative.i.$model.txt  input.raw.tmp  | 
 awk '{a[NR]=$0} (NR==1){s=NF} (NR==2){t=NF} END{printf "%i\t%i\t%i\n",NR/2,s, t; for(i=1;i<=NR;i++){printf "%s\n",a[i]}}' tmp/norm.tmp > input.txt
 
 ./scripts/sl_nnetwrok input.txt ./models/secondary.$model | awk '(NF==3)' > tmp/output.raw.txt
-awk 'BEGIN { ORS=" " };{print $3}' tmp/output.raw.txt >tmp/output.raw.result.txt
-echo "" >>tmp/output.raw.result.txt
-awk '{print $1, $2}' tmp/output.raw.txt >tmp/output.raw.columns.txt
+#awk 'BEGIN { ORS=" " };{print $3}' tmp/output.raw.txt >tmp/output.raw.result.txt
+#echo "" >>tmp/output.raw.result.txt
+#awk '{print $1, $2}' tmp/output.raw.txt >tmp/output.raw.columns.txt
 
-cat $f/min.relative.o.$model.txt $f/max.relative.o.$model.txt thresholds.txt |   awk '(NR==1){for(i=1;i<=NF;i++){m[i]=$i}} (NR==2){for(i=1;i<=NF;i++){M[i]=$i}}  (NR>2){for(i=1;i<=NF;i++){ s=0; s=(($i/2+1/2)*(M[i]-m[i])+m[i])/"'$MG'"; printf "%4.2f\t",s} printf "\n"}'  | awk '{for(i=1;i<=NF;i++){s+=$i}}END{print s/NF}' >threshold.norm
+#cat $f/min.relative.o.$model.txt $f/max.relative.o.$model.txt thresholds.txt |   awk '(NR==1){for(i=1;i<=NF;i++){m[i]=$i}} (NR==2){for(i=1;i<=NF;i++){M[i]=$i}}  (NR>2){for(i=1;i<=NF;i++){ s=0; s=(($i/2+1/2)*(M[i]-m[i])+m[i])/"'$MG'"; printf "%4.2f\t",s} printf "\n"}'  | awk '{for(i=1;i<=NF;i++){s+=$i}}END{print s/NF}' >threshold.norm
 
-cat $f/min.relative.o.$model.txt $f/max.relative.o.$model.txt  tmp/output.raw.result.txt |   awk '(NR==1){for(i=1;i<=NF;i++){m[i]=$i}} (NR==2){for(i=1;i<=NF;i++){M[i]=$i}}  (NR>2){for(i=1;i<=NF;i++){ s=0; s=(($i/2+1/2)*(M[i]-m[i])+m[i])/"'$MG'"; printf "%4.2f\t",s} printf "\n"}' >tmp/output.norm.txt
-cat tmp/output.norm.txt | tr '\t' '\n' >tmp/tmp.1
-paste -d " "  tmp/output.raw.columns.txt tmp/tmp.1 >tmp/output.raw.norm.final.txt
+#cat $f/min.relative.o.$model.txt $f/max.relative.o.$model.txt  tmp/output.raw.result.txt |   awk '(NR==1){for(i=1;i<=NF;i++){m[i]=$i}} (NR==2){for(i=1;i<=NF;i++){M[i]=$i}}  (NR>2){for(i=1;i<=NF;i++){ s=0; s=(($i/2+1/2)*(M[i]-m[i])+m[i])/"'$MG'"; printf "%4.2f\t",s} printf "\n"}' >tmp/output.norm.txt
+#cat tmp/output.norm.txt | tr '\t' '\n' >tmp/tmp.1
+#paste -d " "  tmp/output.raw.columns.txt tmp/tmp.1 >tmp/output.raw.norm.final.txt
