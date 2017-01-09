@@ -54,6 +54,7 @@ form_fields:
         type: email
         required: No
     -   name: dataset_reference
+        description: Model dataset reference (ID number)
         type: reference
         required: Yes
         hidden: Yes
