@@ -46,16 +46,11 @@ for item in task_definition['form_fields']:
 	   '-FORM%s'%item['name'], type=str, default="none", nargs=1,
 	   help='Form argument: %s' % item)
 
-reference_field_names = [i["name"] for i in task_definition["form_fields"] if i["type"] == "reference"]
-for ref_name in reference_field_names:
-    parser.add_argument(
-        '-REF%s'%ref_name, type=str, default="", nargs=1,
-        help='Reference: %s' % ref_name)
 
 
 # this parse_args stops if any unexpected arguments is passed
 args = parser.parse_args()
-reference_folder=os.path.join(WORKER_PATH,"work_in_progress",args.REFdataset_reference[0],"output")
+reference_folder=os.path.join(WORKER_PATH,"work_in_progress",args.FORMdataset_reference[0],"output")
 OUTPUT_PATH = os.path.join(WORKER_PATH, args.output_dir[0])
 
 # import code; code.interact(local=locals())
