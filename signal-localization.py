@@ -46,16 +46,21 @@ for item in task_definition['form_fields']:
 	   '-FORM%s'%item['name'], type=str, default="none", nargs=1,
 	   help='Form argument: %s' % item)
 
+reference_field_names = [i["name"] for i in task_definition["form_fields"] if i["type"] == "reference"]
+for ref_name in reference_field_names:
+    parser.add_argument(
+        '-REF%s'%ref_name, type=str, default="", nargs=1,
+        help='Reference: %s' % ref_name)
 
 
 # this parse_args stops if any unexpected arguments is passed
 args = parser.parse_args()
-
+reference_folder=os.path.join(WORKER_PATH,"work_in_progress",args.REFdataset_reference[0],"output")
 OUTPUT_PATH = os.path.join(WORKER_PATH, args.output_dir[0])
 
 # import code; code.interact(local=locals())
-# import IPython
-# IPython.embed()
+#import IPython
+#IPython.embed()
 
 import re
 import StringIO
@@ -99,7 +104,7 @@ if args.FORMmode[0]=="custom":
 	for entry in rnaSeq:
 		if len(entry.seq)>0:
 			valid_entries+=1
-			
+
 			entry.id=re.sub('[^0-9a-zA-Z]+', '_', entry.id)
 			entry.description=""
 			rnaFile = os.path.join(rnafolder,entry.id)
@@ -138,7 +143,7 @@ else:
 
 logfile = open("pylog."+str(random_number)+".txt","w")
 
-cmd = """bash signal-localization.sh "{}" "{}" "{}" "{}" "{}" "{}" "{}" "{}"  """.format(random_number, args.FORMemail[0], title, "150", protFile,rnaFile,args.FORMmode[0],rnafolder)
+cmd = """bash signal-localization.sh "{}" "{}" "{}" "{}" "{}" "{}" "{}" "{}" "{}" """.format(random_number, args.FORMemail[0], title, "150", protFile,rnaFile,args.FORMmode[0],rnafolder, reference_folder)
 print cmd
 p = subprocess.Popen(cmd, cwd=SCRIPT_PATH, shell=True)
 

@@ -2,6 +2,7 @@
 script_folder=$7
 case=$8
 mode=$9
+reference="${10}"
 ./flip -u $5
 threshold=-0.2
 sed 's/[\| | \\ | \/ | \* | \$ | \# | \? | \! ]/./g' $5 | awk '(length($1)>=1)' | awk '($1~/>/){gsub(" ", "."); printf "\n%s\t", $1} ($1!~/>/){printf "%s", toupper($1)}' | awk '(NF==2)' | head -1 | sed 's/>\.//g;s/>//g' | awk '{print substr($1,1,12)"_"NR, toupper($2)}' >  ./protein/outfile
@@ -16,6 +17,9 @@ cat ./protein/outfile  	    >>  ./outputs/yoursequences.$1.$3.txt
 
 num2=`cat ./protein/outfile  | awk '{print NR}'`
 
+# OLD WAY and SLOW in the if false.
+if false
+then
 echo "Protein sequence processing and fragmentation"
 date +"%m-%d-%y %r"
 
@@ -28,6 +32,7 @@ cd ../
 echo "Protein library generation"
 date +"%m-%d-%y %r"
 
+
 cd protein.libraries.U
   cd protein_library_generator/
     sed 's/|/_/g' ../../protein/outfile.fr > outfile.fr.txt
@@ -36,7 +41,11 @@ cd protein.libraries.U
 
   cd ../
 cd ../
+fi
 
+
+echo "Copy Protein library"
+cp $reference/protein.lib 	./outputs/protein.library.$1.$3.txt
 # PROTEIN + RNA INTERACTIONS #################################################################################
 
 echo "protein and RNA interaction computing"
@@ -72,7 +81,8 @@ cd filter
     fi
     if [[ $mode == "custom" ]]
   	then
-      Lrna=$(awk '{print length($2)}' ../rna/rna_seqs_oneline/$case)
+      #Lrna=$(awk '{print length($2)}' ../rna/rna_seqs_oneline/$case)
+      Lrna=$(cat ../outputs/$case.length.txt)
     fi
     date +"%m-%d-%y %r"
     bash sl_network.sh ../outputs/interactions.$1.$3.txt $case

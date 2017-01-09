@@ -53,6 +53,10 @@ form_fields:
         description: Email address (optional, used for notification)
         type: email
         required: No
+    -   name: dataset_reference
+        type: reference
+        required: Yes
+        hidden: Yes
 
 examples:
     #-   reference_id:   55985

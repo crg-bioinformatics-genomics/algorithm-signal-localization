@@ -1,13 +1,14 @@
 #!/bin/bash
-# bash signal-localization.sh <random_number> <email_address> <title> <type> <protein file> <transcript idlist><mode> <rnafolder>
+# bash signal-localization.sh <random_number> <email_address> <title> <type> <protein file> <transcript idlist><mode> <rnafolder> <reference folder>
 echo $1 $2 $3 $4 $5 $6
 echo $7
 echo $8
+echo $9
 
 
 mode=$7
 rnafolder=$8
-
+reference=$9
 set -e
 #set -o pipeline
 
@@ -28,35 +29,43 @@ for i in `awk '{print $0}' $6`;do
 	then
 
 				cd   tmp/$1/$i
-				echo "Rna sequence processing and fragmentation"
-				if [ ! -s rna/rna_seqs_oneline/ ]; then
-					mkdir rna/rna_seqs_oneline/
-				fi
-				if [ ! -s rna/rna_seqs_fragmented ]; then
-					mkdir rna/rna_seqs_fragmented
-				fi
-				sed 's/[\| | \\ | \/ | \* | \$ | \# | \? | \! ]/./g' $rnafolder/$i | awk '(length($1)>=1)' | awk '($1~/>/){gsub(" ", "."); printf "\n%s\t", $1} ($1!~/>/){gsub(/[Uu]/, "T", $1); printf "%s",toupper($1)}' | awk '(NF==2)' | head -1 | sed 's/>\.//g;s/>//g' | awk '{print substr($1,1,12)"_"NR, $2}' >  ./rna/rna_seqs_oneline/$i
 
-				cd fragmentation
-					echo "Custom Rna fragmentation"
-					if [ ! -s ../rna.libraries.U/rna_seqs ]; then
-						mkdir ../rna.libraries.U/rna_seqs
+				# OLD WAY and SLOW in the if false.
+				if false
+				then
+					echo "Rna sequence processing and fragmentation"
+					if [ ! -s rna/rna_seqs_oneline/ ]; then
+						mkdir rna/rna_seqs_oneline/
 					fi
-					mkdir ../rna.libraries.U/rna_seqs/1
-					bash rna.job.cutter.sh ../rna/rna_seqs_oneline/$i > ../rna.libraries.U/rna_seqs/1/$i.rna.fragm.seq;
-				cd ..
-
-				echo "Custom rna library generation"
-
-				cd rna.libraries.U/
-					if [ ! -s outs ]; then
-						mkdir outs
+					if [ ! -s rna/rna_seqs_fragmented ]; then
+						mkdir rna/rna_seqs_fragmented
 					fi
-					bash job1.sh
-				cd ..
-				python library_checker.py $(pwd | awk '{print $0"/rna.libraries.U/outs/"}')
-				cp rna.libraries.U/outs/$i.rna.fragm.seq.rna.lib interactions.U/combine_parallel/rna/
-				cd ../../../
+					sed 's/[\| | \\ | \/ | \* | \$ | \# | \? | \! ]/./g' $rnafolder/$i | awk '(length($1)>=1)' | awk '($1~/>/){gsub(" ", "."); printf "\n%s\t", $1} ($1!~/>/){gsub(/[Uu]/, "T", $1); printf "%s",toupper($1)}' | awk '(NF==2)' | head -1 | sed 's/>\.//g;s/>//g' | awk '{print substr($1,1,12)"_"NR, $2}' >  ./rna/rna_seqs_oneline/$i
+
+					cd fragmentation
+						echo "Custom Rna fragmentation"
+						if [ ! -s ../rna.libraries.U/rna_seqs ]; then
+							mkdir ../rna.libraries.U/rna_seqs
+						fi
+						mkdir ../rna.libraries.U/rna_seqs/1
+						bash rna.job.cutter.sh ../rna/rna_seqs_oneline/$i > ../rna.libraries.U/rna_seqs/1/$i.rna.fragm.seq;
+					cd ..
+
+					echo "Custom rna library generation"
+
+					cd rna.libraries.U/
+						if [ ! -s outs ]; then
+							mkdir outs
+						fi
+						bash job1.sh
+					cd ..
+					python library_checker.py $(pwd | awk '{print $0"/rna.libraries.U/outs/"}')
+					fi
+					echo "Copy reference RNA library!"
+					cp $reference/rna_libs/$i.*.lib 	rna.libraries.U/outs/
+					cp rna.libraries.U/outs/$i.rna.fragm.seq.rna.lib interactions.U/combine_parallel/rna/
+					awk 'NR>1{l+=length($1)}END{print l}' $rnafolder/$i >outputs/$i.length.txt
+					cd ../../../
 
 	fi
 	if [[ $mode == "lincrnas" ]]
@@ -69,7 +78,7 @@ for i in `awk '{print $0}' $6`;do
 	prot_file=$(readlink -f tmp/$1/$i/outputs/protfile)
 
   cd   tmp/$1/$i
-	bash run_signal_localization_case.sh $1 $2 $3 $4 $prot_file $6 $script_folder $i $mode
+	bash run_signal_localization_case.sh $1 $2 $3 $4 $prot_file $6 $script_folder $i $mode $reference
 	cd ../../../ ) &
 
 done
