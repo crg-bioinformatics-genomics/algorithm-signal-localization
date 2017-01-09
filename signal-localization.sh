@@ -62,6 +62,8 @@ for i in `awk '{print $0}' $6`;do
 					python library_checker.py $(pwd | awk '{print $0"/rna.libraries.U/outs/"}')
 					fi
 					echo "Copy reference RNA library!"
+					if [ ! -s rna.libraries.U/outs ]; then
+						mkdir rna.libraries.U/outs
 					cp $reference/rna_libs/$i.*.lib 	rna.libraries.U/outs/
 					cp rna.libraries.U/outs/$i.rna.fragm.seq.rna.lib interactions.U/combine_parallel/rna/
 					awk 'NR>1{l+=length($1)}END{print l}' $rnafolder/$i >outputs/$i.length.txt
