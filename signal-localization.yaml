@@ -55,7 +55,7 @@ form_fields:
         required: No
     -   name: dataset_reference
         description: Model dataset reference (ID number)
-        type: textarea
+        type: reference
         required: Yes
         hidden: Yes
 
