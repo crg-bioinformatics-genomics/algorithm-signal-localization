@@ -47,6 +47,11 @@ for item in task_definition['form_fields']:
 	   help='Form argument: %s' % item)
 
 
+reference_field_names = [i["name"] for i in task_definition["form_fields"] if i["type"] == "reference"]
+for ref_name in reference_field_names:
+    parser.add_argument(
+        '-REF%s'%ref_name, type=str, default="", nargs=1,
+        help='Reference: %s' % ref_name)
 
 # this parse_args stops if any unexpected arguments is passed
 args = parser.parse_args()
