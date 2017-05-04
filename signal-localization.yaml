@@ -43,7 +43,7 @@ form_fields:
         type: textarea
         hidden: Yes
 
-        max_length: 1000
+        max_length: 30000
     -   name: mode
         description: read custom library or lincrnas
         type: textarea
