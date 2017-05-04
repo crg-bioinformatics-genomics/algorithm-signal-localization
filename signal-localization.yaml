@@ -42,7 +42,7 @@ form_fields:
         required: Yes
         type: textarea
         hidden: Yes
-        min_length: 50
+        
         max_length: 30000
     -   name: mode
         description: read custom library or lincrnas
