@@ -52,7 +52,7 @@ for ref_name in reference_field_names:
     parser.add_argument(
         '-REF%s'%ref_name, type=str, default="", nargs=1,
         help='Reference: %s' % ref_name)
-
+IPython.embed()
 # this parse_args stops if any unexpected arguments is passed
 args = parser.parse_args()
 reference_folder=os.path.join(WORKER_PATH,"work_in_progress",args.FORMdataset_reference[0],"output")
