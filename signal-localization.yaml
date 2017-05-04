@@ -35,15 +35,15 @@ form_fields:
         description: Protein sequence (FASTA format)
         required: Yes
         type: textarea
-        min_length: 50
-        max_length: 10000
+        min_length: 150
+        max_length: 5000
     -   name: transcript_ids
         description: Transcript IDs
         required: Yes
         type: textarea
         hidden: Yes
-        
-        max_length: 30000
+
+        max_length: 1000
     -   name: mode
         description: read custom library or lincrnas
         type: textarea
@@ -55,7 +55,7 @@ form_fields:
         required: No
     -   name: dataset_reference
         description: Model dataset reference (ID number)
-        type: reference
+        type: textarea
         required: Yes
         hidden: Yes
 
