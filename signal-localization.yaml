@@ -20,7 +20,7 @@ nav_links:
     -   title:  >
             Documentation
         href:   >
-            http://service.tartaglialab.com/static_files/shared/documentation_omixcore.html
+            http://service.tartaglialab.com/static_files/shared/documentation_omixcore.html#8
     -   title:  >
             Group page @ CRG
         href:   >
@@ -37,13 +37,20 @@ form_fields:
         type: textarea
         min_length: 150
         max_length: 5000
+
     -   name: transcript_ids
-        description: Transcript IDs
+        description: Selected transcript IDs
+        required: Yes
+        type: textarea
+        max_length: 30000
+
+    -   name: transcripts
+        description: Transcripts
         required: Yes
         type: textarea
         hidden: Yes
-
         max_length: 30000
+
     -   name: mode
         description: read custom library or lincrnas
         type: textarea

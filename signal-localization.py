@@ -91,11 +91,11 @@ if args.FORMmode[0]=="custom":
 
 
 	Rpat = re.compile('>.*?\n[GATCU]+', re.IGNORECASE)
-	if Rpat.match(args.FORMtranscript_ids[0]) == None:
+	if Rpat.match(args.FORMtranscripts[0]) == None:
 
-		args.FORMtranscript_ids[0] = ">input_rna\n"+args.FORMtranscript_ids[0]
+		args.FORMtranscripts[0] = ">input_rna\n"+args.FORMtranscripts[0]
 	rnaSeq = []
-	for record in SeqIO.parse(StringIO.StringIO(args.FORMtranscript_ids[0]), "fasta"):
+	for record in SeqIO.parse(StringIO.StringIO(args.FORMtranscripts[0]), "fasta"):
 		rnaSeq.append(record)
 		rnalist.append(record.id)
 	valid_entries=0
@@ -116,7 +116,7 @@ if args.FORMmode[0]=="custom":
 	output_all_handle.close()
 else:
 
-	rnalist=args.FORMtranscript_ids[0].split()
+	rnalist=args.FORMtranscripts[0].split()
 
 rnaFile=os.path.join(OUTPUT_PATH.replace("output/", ""),"rnaList.txt")
 rnaFilehandle=open(rnaFile,'w')
